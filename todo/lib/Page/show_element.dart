@@ -45,13 +45,18 @@ class _ShowElementPageState extends State<ShowElementPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("To Do"),
+        title: const Text('To Do'),
         actions: [
           Padding(
               padding: const EdgeInsets.only(right: 8, top: 8, bottom: 8),
               child: GestureDetector(
                 onTap: () {
-                  _showAlertDialog(context);
+                  _showAlertDialog(
+                    context,
+                    'Effettuare il logout?',
+                    'Annulla',
+                    'Logout',
+                  );
                 },
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(user!.photoURL!),
@@ -89,7 +94,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
     late String element;
 
-    Map<String, dynamic> collection = {"email": "${user!.email}"};
+    Map<String, dynamic> collection = {'email': '${user!.email}'};
 
     List finalTitle = [];
 
@@ -118,7 +123,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
         for (int i = 0; i < temp.length; i++) {
           String tempString = temp[i].toString().trim();
-          List temporaryList = tempString.split(", ");
+          List temporaryList = tempString.split(', ');
           firstTitle.add(temporaryList[3]
               .toString()
               .substring(0, temporaryList[3].toString().length - 1));
@@ -126,7 +131,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
         for (int i = 0; i < firstTitle.length; i++) {
           String tempString = firstTitle[i].toString().trim();
-          List temporaryList = tempString.split(": ");
+          List temporaryList = tempString.split(': ');
           finalTitle.add(temporaryList[1].toString().trim());
         }
 
@@ -148,12 +153,12 @@ class _ShowElementPageState extends State<ShowElementPage> {
     DateFormat formatter = DateFormat();
     late String element;
 
-    Map<String, dynamic> collection = {"email": "${user!.email}"};
+    Map<String, dynamic> collection = {'email': '${user!.email}'};
 
     Map<String, dynamic> secondCollection = {
-      "date": Timestamp.fromDate(dateList[index]),
-      "description": descriptionList[index],
-      "title": titleList[index],
+      'date': Timestamp.fromDate(dateList[index]),
+      'description': descriptionList[index],
+      'title': titleList[index],
     };
 
     collectionReference.snapshots().listen((snapshot) {
@@ -192,7 +197,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
     late String element;
 
-    Map<String, dynamic> collection = {"email": "${user!.email}"};
+    Map<String, dynamic> collection = {'email': '${user!.email}'};
 
     collectionReference.snapshots().listen((snapshot) {
       for (int i = 0; i < snapshot.docs.length; i++) {
@@ -221,14 +226,14 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
         for (int i = 0; i < temp.length; i++) {
           String tempString = temp[i].toString().trim();
-          List temporaryList = tempString.split(", d");
+          List temporaryList = tempString.split(', d');
           firstDate.add(temporaryList[0]
               .substring(1, temporaryList[0].toString().length));
         }
 
         for (int i = 0; i < firstDate.length; i++) {
           String tempString = firstDate[i];
-          List temporaryList = tempString.split(": ");
+          List temporaryList = tempString.split(': ');
           finalDate.add(temporaryList[1]
               .toString()
               .substring(9, temporaryList[1].toString().length));
@@ -236,11 +241,11 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
         for (int i = 0; i < finalDate.length; i++) {
           String temp = finalDate[i].toString().trim();
-          List temporaryList = temp.split(", ");
-          List seconds = temporaryList[0].toString().split("=");
-          List nanoseconds = temporaryList[1].toString().split("=");
+          List temporaryList = temp.split(', ');
+          List seconds = temporaryList[0].toString().split('=');
+          List nanoseconds = temporaryList[1].toString().split('=');
           String settings = seconds[1].toString().trim() +
-              ":" +
+              ':' +
               nanoseconds[1]
                   .toString()
                   .substring(0, nanoseconds[1].toString().length - 1)
@@ -250,7 +255,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
         setState(() {
           for (int i = 0; i < settingsList.length; i++) {
-            List returnDate = settingsList[i].toString().split(":");
+            List returnDate = settingsList[i].toString().split(':');
             date =
                 Timestamp(int.parse(returnDate[0]), int.parse(returnDate[1]));
             dateList.add(date.toDate());
@@ -267,7 +272,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
     late String element;
 
-    Map<String, dynamic> collection = {"email": "${user!.email}"};
+    Map<String, dynamic> collection = {'email': '${user!.email}'};
 
     collectionReference.snapshots().listen((snapshot) {
       for (int i = 0; i < snapshot.docs.length; i++) {
@@ -295,13 +300,13 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
         for (int i = 0; i < temp.length; i++) {
           String tempString = temp[i].toString().trim();
-          List temporaryList = tempString.split(", ");
+          List temporaryList = tempString.split(', ');
           firstDescription.add(temporaryList[2].toString().trim());
         }
 
         for (int i = 0; i < firstDescription.length; i++) {
           String tempString = firstDescription[i].toString().trim();
-          List temporaryList = tempString.split(": ");
+          List temporaryList = tempString.split(': ');
           finalDescription.add(temporaryList[1].toString().trim());
         }
 
@@ -345,8 +350,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
                         onTap: () {
                           _deleteDialog(context, index);
                         },
-                        child: Container(
-                            child: Row(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -355,7 +359,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
                                 padding: EdgeInsets.only(left: 8, right: 8)),
                             Text(titleList[index])
                           ],
-                        )),
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -375,7 +379,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
                       ),
                     ],
                   ),
-                  Container(
+                  SizedBox(
                     height: 50,
                     child: Text(descriptionList[index]),
                   )
@@ -406,13 +410,19 @@ class _ShowElementPageState extends State<ShowElementPage> {
               ),
             ],
           ),
-          //content: new Text("Alert Dialog body"),
-          actions: <Widget>[
-            ElevatedButton(
-                onPressed: () {
-                  _shareElement(index);
-                },
-                child: const Text("Share"))
+          //content: new Text('Alert Dialog body'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                _shareElement(index);
+              },
+              child: const Text(
+                'Share',
+                style: TextStyle(
+                  color: Color(0xff4285F4),
+                ),
+              ),
+            )
           ],
         );
       },
@@ -426,7 +436,7 @@ class _ShowElementPageState extends State<ShowElementPage> {
 
     late String element;
 
-    Map<String, dynamic> collection = {"email": shareController.text.trim()};
+    Map<String, dynamic> collection = {'email': shareController.text.trim()};
 
     collectionReference.snapshots().listen((snapshot) {
       for (int i = 0; i < snapshot.docs.length; i++) {
@@ -444,10 +454,10 @@ class _ShowElementPageState extends State<ShowElementPage> {
           .collection('todo');
 
       Map<String, dynamic> todo = {
-        "title": titleList[index],
-        "date": dateList[index],
-        "description":
-            descriptionList[index].isEmpty ? "null" : descriptionList[index],
+        'title': titleList[index],
+        'date': dateList[index],
+        'description':
+            descriptionList[index].isEmpty ? 'null' : descriptionList[index],
       };
 
       secondCollectionReference.add(todo);
@@ -464,73 +474,77 @@ class _ShowElementPageState extends State<ShowElementPage> {
         // return alert dialog object
         return AlertDialog(
           title: const Text('Do you want to delete it?'),
-          //content: new Text("Alert Dialog body"),
+          //content: new Text('Alert Dialog body'),
           actions: <Widget>[
-            SizedBox(
-              width: 140,
-              child: ElevatedButton(
-                  onPressed: () async {
-                    await _deleteToDo(index);
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Yes")),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'No',
+                style: TextStyle(
+                  color: Color(0xff4285F4),
+                ),
+              ),
             ),
-            SizedBox(
-              width: 140,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("No")),
-            )
+            TextButton(
+              onPressed: () async {
+                await _deleteToDo(index);
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                'Yes',
+                style: TextStyle(
+                  color: Color(0xff4285F4),
+                ),
+              ),
+            ),
           ],
         );
       },
     );
   }
 
-  void _showAlertDialog(context) {
+  void _showAlertDialog(context, String title, String action1, String action2) {
     // flutter defined function
     showDialog(
       context: context,
       builder: (BuildContext context) {
         // return alert dialog object
         return AlertDialog(
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Icon(Icons.close),
-                  ),
-                  const Text("To Do"),
-                ],
+          title: Text(title),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                action1,
+                style: const TextStyle(
+                  color: Color(0xff4285F4),
+                ),
               ),
-              ElevatedButton(
-                  onPressed: () {
-                    final provider = Provider.of<GoogleSignInProvider>(context,
-                        listen: false);
-                    provider.logout();
-                    Navigator.of(context).pop();
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
-                      (Route<dynamic> route) => false,
-                    );
-                  },
-                  child: const Text("Log Out"))
-            ],
-          ),
-          //content: new Text("Alert Dialog body"),
-          actions: const <Widget>[],
+            ),
+            TextButton(
+              onPressed: () {
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.logout();
+                Navigator.of(context).pop();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+              child: Text(
+                action2,
+                style: const TextStyle(
+                  color: Color(0xff4285F4),
+                ),
+              ),
+            )
+          ],
         );
       },
     );
